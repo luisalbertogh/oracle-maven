@@ -12,7 +12,7 @@
 	<!-- Properties -->
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<scm-url>https://www.dbcde.com/svn/repos/volcker-source-repository/sdlc/oracle-maven-plugin/trunk</scm-url>
+		<scm-url>git@github.com:luisalbertogh/oracle-maven.git</scm-url>
 		<java.version>1.8</java.version>
 		<maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
@@ -20,8 +20,8 @@
 
 	<!-- SCM details -->
 	<scm>
-		<connection>scm:svn:${scm-url}</connection>
-		<developerConnection>scm:svn:${scm-url}</developerConnection>
+		<connection>scm:git:${scm-url}</connection>
+		<developerConnection>scm:git:${scm-url}</developerConnection>
 		<url>${scm-url}</url>
 	</scm>
 	        
