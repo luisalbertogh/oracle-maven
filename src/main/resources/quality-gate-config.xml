@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <confBean config-class="com.db.volcker.sdlc.oracle.domain.ConfPO">  
+        <!-- Include paths definition -->
+        <includePaths config-class="com.db.volcker.sdlc.oracle.domain.IncludesPO">
+            <inPatternPO config-class="com.db.volcker.sdlc.oracle.domain.PatternPO" id="1" pathPattern="VR_database/src/main/scripts/VR_OWNER/DELTA"/>
+            <inPatternPO config-class="com.db.volcker.sdlc.oracle.domain.PatternPO" id="2" pathPattern="VR_database/src/main/scripts/VR_OWNER/CODE"/>
+            <inPatternPO config-class="com.db.volcker.sdlc.oracle.domain.PatternPO" id="3" pathPattern="VR_database/src/main/scripts/MIS_OWNER/DELTA"/>
+            <inPatternPO config-class="com.db.volcker.sdlc.oracle.domain.PatternPO" id="4" pathPattern="VR_database/src/main/scripts/MIS_OWNER/CODE"/>
+        </includePaths>
+        
+        <!-- Exclude paths definition --> 
+        <excludePatterns config-class="com.db.volcker.sdlc.oracle.domain.ExcludesPO">
+            <exPatternPO config-class="com.db.volcker.sdlc.oracle.domain.PatternPO" id="1" pathPattern="**/DELTA/**/rollback/**"/>
+            <exPatternPO config-class="com.db.volcker.sdlc.oracle.domain.PatternPO" id="2" pathPattern="**/00_DROP_ALL_OBJECTS.sql"/>
+            <exPatternPO config-class="com.db.volcker.sdlc.oracle.domain.PatternPO" id="3" pathPattern="**/grants_liquibase.sql"/>
+            <exPatternPO config-class="com.db.volcker.sdlc.oracle.domain.PatternPO" id="4" pathPattern="**/DROP_ALL_OBJECTS.sql"/>
+            <exPatternPO config-class="com.db.volcker.sdlc.oracle.domain.PatternPO" id="5" pathPattern="**/recompile.sql"/>
+            <exPatternPO config-class="com.db.volcker.sdlc.oracle.domain.PatternPO" id="6" pathPattern="**/AUTO_SYNONYMS.sql"/>
+            <!-- It has a SET DEFINE ??? -->
+            <exPatternPO config-class="com.db.volcker.sdlc.oracle.domain.PatternPO" id="7" pathPattern="**/PKG_BH_UPDATER.sql"/>
+            <exPatternPO config-class="com.db.volcker.sdlc.oracle.domain.PatternPO" id="8" pathPattern="**/UTILS/**"/>
+            <exPatternPO config-class="com.db.volcker.sdlc.oracle.domain.PatternPO" id="9" pathPattern="**/DATA/**"/>
+            <exPatternPO config-class="com.db.volcker.sdlc.oracle.domain.PatternPO" id="10" pathPattern="**/DDL/**"/>
+        </excludePatterns>
+    
+        <!-- Validation rules -->
+        <rules config-class="com.db.volcker.sdlc.oracle.domain.RulesPO">
+        
+            <!-- For DDLs and DMLs, check that first line is equal to included pattern (avoid blank spaces and other chars before) -->
+            <rule config-class="com.db.volcker.sdlc.oracle.rules.CheckContentRule" 
+              line="1" id="checkContent" fileExt="sql" msgType="error"  
+              errMsg="First line must be '--liquibase formatted sql'" contentPattern="^--liquibase formatted sql( )*$">
+                <!-- Include paths -->
+                <includePaths config-class="com.db.volcker.sdlc.oracle.domain.IncludesPO">
+                    <inPatternPO config-class="com.db.volcker.sdlc.oracle.domain.PatternPO" id="1"/>
+                    <inPatternPO config-class="com.db.volcker.sdlc.oracle.domain.PatternPO" id="3"/>
+                </includePaths>
+            </rule>
+            
+            <!-- For MERGE INTO, check that runOnChange:TRUE -->
+            <rule config-class="com.db.volcker.sdlc.oracle.rules.DualRule" 
+              id="mergeDelta" fileExt="sql" msgType="error" 
+              errMsg="Changesets with MERGE statements must set runOnChange:TRUE" contentPattern="merge into-->runonchange:true">
+                <!-- Include paths -->
+                <includePaths config-class="com.db.volcker.sdlc.oracle.domain.IncludesPO">
+                    <inPatternPO config-class="com.db.volcker.sdlc.oracle.domain.PatternPO" id="1"/>
+                    <inPatternPO config-class="com.db.volcker.sdlc.oracle.domain.PatternPO" id="3"/>
+                </includePaths>
+            </rule>
+            
+            <!-- RUN_ALWAYS must be set to FALSE or do not appear -->
+            <rule config-class="com.db.volcker.sdlc.oracle.rules.InclusionRule" 
+              id="runAlways" fileExt="sql" msgType="error" 
+              errMsg="runAlways must be set to FALSE or remove it" contentPattern="-||runalways:true">
+                <!-- Include paths -->
+                <includePaths config-class="com.db.volcker.sdlc.oracle.domain.IncludesPO">
+                    <inPatternPO config-class="com.db.volcker.sdlc.oracle.domain.PatternPO" id="1"/>
+                    <inPatternPO config-class="com.db.volcker.sdlc.oracle.domain.PatternPO" id="3"/>
+                </includePaths>
+            </rule>
+            
+            <!-- FAIL_ON_ERROR must be set to TRUE or do not appear -->
+            <rule config-class="com.db.volcker.sdlc.oracle.rules.InclusionRule" 
+              id="failError" fileExt="sql" msgType="error" 
+              errMsg="failOnError must be set to TRUE or do not appear" contentPattern="-||failonerror:false">
+            </rule>
+            
+            <!-- Changeset ID - Check changset id integrity - Right fix version, jira id and format -->
+            <rule config-class="com.db.volcker.sdlc.oracle.rules.ChgsetIdRule" 
+              id="chgsetid" fileExt="sql" msgType="error" checkContent="false" contentPattern="P\d\d\.\d\d\.\d\d:GBSVR-\d\d\d\d\d(-\d+)?"
+              errMsg="Changeset ID (FIX_VERSION:JIRA-ID-running_number) does not match location and/or format.">
+                <!-- Include paths -->
+                <includePaths config-class="com.db.volcker.sdlc.oracle.domain.IncludesPO">
+                    <inPatternPO config-class="com.db.volcker.sdlc.oracle.domain.PatternPO" id="1"/>
+                    <inPatternPO config-class="com.db.volcker.sdlc.oracle.domain.PatternPO" id="3"/>
+                </includePaths>
+            </rule>
+            
+            <!-- Roolback must be present -->
+            <!-- REMOVED -->
+            
+            <!-- Avoid slash char '/' -->
+            <rule config-class="com.db.volcker.sdlc.oracle.rules.InclusionRule" 
+              id="slashchar" fileExt="sql" msgType="error" 
+              errMsg="Slash char is forbidden" contentPattern="-||^/$">
+                <!-- Include paths -->
+                <includePaths config-class="com.db.volcker.sdlc.oracle.domain.IncludesPO">
+                    <inPatternPO config-class="com.db.volcker.sdlc.oracle.domain.PatternPO" id="1"/>
+                    <inPatternPO config-class="com.db.volcker.sdlc.oracle.domain.PatternPO" id="3"/>
+                </includePaths>
+            </rule>
+            
+            <!-- Do not use commit -->
+            <rule config-class="com.db.volcker.sdlc.oracle.rules.InclusionRule" 
+              id="commit" fileExt="sql" msgType="error" 
+              errMsg="Commit is not alowed" contentPattern="-||commit">
+                <!-- Include paths -->
+                <includePaths config-class="com.db.volcker.sdlc.oracle.domain.IncludesPO">
+                    <inPatternPO config-class="com.db.volcker.sdlc.oracle.domain.PatternPO" id="1"/>
+                    <inPatternPO config-class="com.db.volcker.sdlc.oracle.domain.PatternPO" id="3"/>
+                </includePaths>
+            </rule>
+            
+            <!-- Do not use spool -->
+            <rule config-class="com.db.volcker.sdlc.oracle.rules.InclusionRule" 
+              id="spool" fileExt="sql" msgType="error" 
+              errMsg="Spool is not alowed" contentPattern="-||spool">
+            </rule>
+            
+            <!-- Do not use define -->
+            <rule config-class="com.db.volcker.sdlc.oracle.rules.InclusionRule" 
+              id="define" fileExt="sql" msgType="error" 
+              errMsg="SET DEFINE is not allowed" contentPattern="-||define">
+                <!-- Include paths -->
+                <includePaths config-class="com.db.volcker.sdlc.oracle.domain.IncludesPO">
+                    <inPatternPO config-class="com.db.volcker.sdlc.oracle.domain.PatternPO" id="1"/>
+                    <inPatternPO config-class="com.db.volcker.sdlc.oracle.domain.PatternPO" id="3"/>
+                </includePaths>
+            </rule>
+            
+            <!-- Check changelogs includes - Validate that right files are included (same fix version and jira id) -->
+            <rule config-class="com.db.volcker.sdlc.oracle.rules.IncludeFileRule" 
+              id="includerule" fileExt="xml" msgType="error" pathPattern="**/install-changelog.xml" contentPattern="/*/*[local-name() = 'include']/@file"
+              errMsg="Included file does not match changelog path (fix version and JIRA id)">
+                <!-- Include paths -->
+                <includePaths config-class="com.db.volcker.sdlc.oracle.domain.IncludesPO">
+                    <inPatternPO config-class="com.db.volcker.sdlc.oracle.domain.PatternPO" id="1"/>
+                    <inPatternPO config-class="com.db.volcker.sdlc.oracle.domain.PatternPO" id="3"/>
+                </includePaths>
+            </rule>
+            
+            <!-- Check XML changesets - Validate attributes and rollback-->
+            <rule config-class="com.db.volcker.sdlc.oracle.rules.XmlChangeSetRule" 
+              id="changesetrule" fileExt="xml" msgType="error" pathPattern="**/install-changelog.xml" contentPattern="/*/*[local-name() = 'changeSet']"
+              attrPattern="runonchange:true||runalways:false:optional||failonerror:true:optional" idPattern="P\d\d\.\d\d\.\d\d:GBSVR-\d\d\d\d\d-*\d*"
+              errMsg="Changeset attributes are not compliant with defined rules">
+                <!-- Include paths -->
+                <includePaths config-class="com.db.volcker.sdlc.oracle.domain.IncludesPO">
+                    <inPatternPO config-class="com.db.volcker.sdlc.oracle.domain.PatternPO" id="1"/>
+                    <inPatternPO config-class="com.db.volcker.sdlc.oracle.domain.PatternPO" id="3"/>
+                </includePaths>
+            </rule>
+            
+        </rules>
+    </confBean>
+</configuration>

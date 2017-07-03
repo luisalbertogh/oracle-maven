@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+	        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+			
+	<!-- This is a sample on how to include a delta set. Use it as a reference.
+	<include file="DELTA/RELEASE/GBSVR-XXXXX/install/install-changelog.xml"/> -->
+	<!-- do not alter order of JIRAS once they're included-->
+	<!--changeset author="P17.05.27" id="pretag">
+	<tagDatabase tag="BEFORE_P17.05.27"/>
+	</changeset-->
+    <include file="DELTA/P17.05.30/GBSVR-34612/install/install-changelog.xml" />
+    <include file="DELTA/P17.05.30/GBSVR-34712/install/install-changelog.xml" />
+
+
+	<!--include file="CODEchangelog.xml"/-->
+</databaseChangeLog>		

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+        <!-- STDOUT -->
+        <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n</pattern>
+            </encoder>
+        </appender>
+
+        <!-- Rolling File -->
+        <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <file>oracle-maven-plugin.log</file>
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <fileNamePattern>oracle-maven-plugin-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+                <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                    <maxFileSize>1MB</maxFileSize>
+                </timeBasedFileNamingAndTriggeringPolicy>
+                <maxHistory>5</maxHistory>
+            </rollingPolicy>
+            <encoder>
+                <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n</pattern>
+            </encoder>
+        </appender>
+
+        <!-- File logger -->
+        <logger name="com.db.volcker.sdlc.oracle" level="debug" additivity="false">
+               <appender-ref ref="FILE" />
+        </logger>
+
+        <!-- Stdout logger -->
+        <logger name="com.db.volcker.sdlc.oracle" level="info" additivity="false">
+               <appender-ref ref="STDOUT" />
+        </logger>
+
+        <!-- Root logger -->
+        <root level="error">
+               <appender-ref ref="STDOUT" />
+        </root>
+</configuration>

@@ -1,0 +1,202 @@
+--liquibase formatted sql
+--changeset ${vr_owner_user}_CODE:VIEW_VW_BOOK_HIERARCHY runOnChange:TRUE  failOnError:TRUE splitStatements:TRUE
+
+
+  CREATE OR REPLACE FORCE VIEW "VW_BOOK_HIERARCHY" ("ASOFDATE", "BOOK_ID", "SOURCE_SYSTEM", "LEGAL_ENTITY", "GLOBAL_TRADER_BOOK_ID", "PROFIT_CENTER_ID", "COMMENTS", "DATA_SOURCE", "MI_LOCATION", "TRADING_UNIT", "VOLCKER_TRADING_DESK_FULL", "LOWEST_LEVEL_RPL_CODE", "LOWEST_LEVEL_RPL_FULL_NAME", "LOWEST_LEVEL_RPL", "CHARGE_REPORTING_UNIT_CODE", "CHARGE_REPORTING_UNIT", "CHARGE_REPORTING_PARENT_CODE", "CHARGE_REPORTING_PARENT", "UBR_LEVEL_1_ID", "UBR_LEVEL_1_NAME", "UBR_LEVEL_1_RPL_CODE", "UBR_LEVEL_2_ID", "UBR_LEVEL_2_NAME", "UBR_LEVEL_2_RPL_CODE", "UBR_LEVEL_3_ID", "UBR_LEVEL_3_NAME", "UBR_LEVEL_3_RPL_CODE", "UBR_LEVEL_4_ID", "UBR_LEVEL_4_NAME", "UBR_LEVEL_4_RPL_CODE", "UBR_LEVEL_5_ID", "UBR_LEVEL_5_NAME", "UBR_LEVEL_5_RPL_CODE", "UBR_LEVEL_6_ID", "UBR_LEVEL_6_NAME", "UBR_LEVEL_6_RPL_CODE", "UBR_LEVEL_7_ID", "UBR_LEVEL_7_NAME", "UBR_LEVEL_7_RPL_CODE", "UBR_LEVEL_8_ID", "UBR_LEVEL_8_NAME", "UBR_LEVEL_8_RPL_CODE", "UBR_LEVEL_9_ID", "UBR_LEVEL_9_NAME", "UBR_LEVEL_9_RPL_CODE", "UBR_LEVEL_10_ID", "UBR_LEVEL_10_NAME", "UBR_LEVEL_10_RPL_CODE", "UBR_LEVEL_11_ID", "UBR_LEVEL_11_NAME", "UBR_LEVEL_11_RPL_CODE", "UBR_LEVEL_12_ID", "UBR_LEVEL_12_NAME", "UBR_LEVEL_12_RPL_CODE", "UBR_LEVEL_13_ID", "UBR_LEVEL_13_NAME", "UBR_LEVEL_13_RPL_CODE", "UBR_LEVEL_14_ID", "UBR_LEVEL_14_NAME", "UBR_LEVEL_14_RPL_CODE", "DESK_LEVEL_1_ID", "DESK_LEVEL_1_NAME", "DESK_LEVEL_1_RPL_CODE", "DESK_LEVEL_2_ID", "DESK_LEVEL_2_NAME", "DESK_LEVEL_2_RPL_CODE", "DESK_LEVEL_3_ID", "DESK_LEVEL_3_NAME", "DESK_LEVEL_3_RPL_CODE", "DESK_LEVEL_4_ID", "DESK_LEVEL_4_NAME", "DESK_LEVEL_4_RPL_CODE", "DESK_LEVEL_5_ID", "DESK_LEVEL_5_NAME", "DESK_LEVEL_5_RPL_CODE", "PORTFOLIO_ID", "PORTFOLIO_NAME", "PORTFOLIO_RPL_CODE", "BUSINESS", "SUB_BUSINESS", "REGION", "SUBREGION") AS 
+  SELECT y.yeardate AS asofdate,
+       UPPER (b.book_id) AS book_id,
+       ss2.source_system_id AS source_system,
+       UPPER (b.legal_entity) AS legal_entity,
+       UPPER (b.global_trader_book_id) AS global_trader_book_id,
+
+       UPPER (b.profit_center_id) AS profit_center_id,
+       UPPER (b.comments) AS comments,
+       UPPER (b.data_source) AS data_source,
+       UPPER (b.mi_location) AS mi_location,
+       UPPER (b.volcker_trading_desk) AS trading_unit,
+       UPPER (b.volcker_trading_desk_full) AS volcker_trading_desk_full,
+       UPPER (b.lowest_level_rpl_code) AS lowest_level_rpl_code,
+       UPPER (b.lowest_level_rpl_full_name) AS lowest_level_rpl_full_name,
+       UPPER (b.lowest_level_rpl) AS lowest_level_rpl,
+       UPPER (b.charge_reporting_unit_code) AS charge_reporting_unit_code,
+       UPPER (b.charge_reporting_unit) AS charge_reporting_unit,
+       UPPER (b.charge_reporting_parent_code) AS charge_reporting_parent_code,
+       UPPER (b.charge_reporting_parent) AS charge_reporting_parent,
+       UPPER (b.ubr_level_1_id) AS ubr_level_1_id,
+       UPPER (b.ubr_level_1_name) AS ubr_level_1_name,
+       UPPER (b.ubr_level_1_rpl_code) AS ubr_level_1_rpl_code,
+       UPPER (b.ubr_level_2_id) AS ubr_level_2_id,
+       UPPER (b.ubr_level_2_name) AS ubr_level_2_name,
+       UPPER (b.ubr_level_2_rpl_code) AS ubr_level_2_rpl_code,
+       UPPER (b.ubr_level_3_id) AS ubr_level_3_id,
+       UPPER (b.ubr_level_3_name) AS ubr_level_3_name,
+       UPPER (b.ubr_level_3_rpl_code) AS ubr_level_3_rpl_code,
+       UPPER (b.ubr_level_4_id) AS ubr_level_4_id,
+       UPPER (b.ubr_level_4_name) AS ubr_level_4_name,
+       UPPER (b.ubr_level_4_rpl_code) AS ubr_level_4_rpl_code,
+       UPPER (b.ubr_level_5_id) AS ubr_level_5_id,
+       UPPER (b.ubr_level_5_name) AS ubr_level_5_name,
+       UPPER (b.ubr_level_5_rpl_code) AS ubr_level_5_rpl_code,
+       UPPER (b.ubr_level_6_id) AS ubr_level_6_id,
+       UPPER (b.ubr_level_6_name) AS ubr_level_6_name,
+       UPPER (b.ubr_level_6_rpl_code) AS ubr_level_6_rpl_code,
+       UPPER (b.ubr_level_7_id) AS ubr_level_7_id,
+       UPPER (b.ubr_level_7_name) AS ubr_level_7_name,
+       UPPER (b.ubr_level_7_rpl_code) AS ubr_level_7_rpl_code,
+
+       UPPER (b.ubr_level_8_id) AS ubr_level_8_id,
+       UPPER (b.ubr_level_8_name) AS ubr_level_8_name,
+       UPPER (b.ubr_level_8_rpl_code) AS ubr_level_8_rpl_code,
+       UPPER (b.ubr_level_9_id) AS ubr_level_9_id,
+       UPPER (b.ubr_level_9_name) AS ubr_level_9_name,
+       UPPER (b.ubr_level_9_rpl_code) AS ubr_level_9_rpl_code,
+       UPPER (b.ubr_level_10_id) AS ubr_level_10_id,
+       UPPER (b.ubr_level_10_name) AS ubr_level_10_name,
+       UPPER (b.ubr_level_10_rpl_code) AS ubr_level_10_rpl_code,
+       UPPER (b.ubr_level_11_id) AS ubr_level_11_id,
+       UPPER (b.ubr_level_11_name) AS ubr_level_11_name,
+       UPPER (b.ubr_level_11_rpl_code) AS ubr_level_11_rpl_code,
+       UPPER (b.ubr_level_12_id) AS ubr_level_12_id,
+       UPPER (b.ubr_level_12_name) AS ubr_level_12_name,
+       UPPER (b.ubr_level_12_rpl_code) AS ubr_level_12_rpl_code,
+       UPPER (b.ubr_level_13_id) AS ubr_level_13_id,
+       UPPER (b.ubr_level_13_name) AS ubr_level_13_name,
+       UPPER (b.ubr_level_13_rpl_code) AS ubr_level_13_rpl_code,
+       UPPER (b.ubr_level_14_id) AS ubr_level_14_id,
+       UPPER (b.ubr_level_14_name) AS ubr_level_14_name,
+       UPPER (b.ubr_level_14_rpl_code) AS ubr_level_14_rpl_code,
+       UPPER (b.desk_level_1_id) AS desk_level_1_id,
+       UPPER (b.desk_level_1_name) AS desk_level_1_name,
+       UPPER (b.desk_level_1_rpl_code) AS desk_level_1_rpl_code,
+       UPPER (b.desk_level_2_id) AS desk_level_2_id,
+       UPPER (b.desk_level_2_name) AS desk_level_2_name,
+       UPPER (b.desk_level_2_rpl_code) AS desk_level_2_rpl_code,
+       UPPER (b.desk_level_3_id) AS desk_level_3_id,
+       UPPER (b.desk_level_3_name) AS desk_level_3_name,
+       UPPER (b.desk_level_3_rpl_code) AS desk_level_3_rpl_code,
+       UPPER (b.desk_level_4_id) AS desk_level_4_id,
+       UPPER (b.desk_level_4_name) AS desk_level_4_name,
+       UPPER (b.desk_level_4_rpl_code) AS desk_level_4_rpl_code,
+       UPPER (b.desk_level_5_id) AS desk_level_5_id,
+
+       UPPER (b.desk_level_5_name) AS desk_level_5_name,
+       UPPER (b.desk_level_5_rpl_code) AS desk_level_5_rpl_code,
+       UPPER (b.portfolio_id) AS portfolio_id,
+       UPPER (b.portfolio_name) AS portfolio_name,
+       UPPER (b.portfolio_rpl_code) AS portfolio_rpl_code,
+       UPPER (b.business) AS business,
+       UPPER (b.sub_business) AS sub_business,
+       UPPER (b.region) AS region,
+       UPPER (b.subregion) AS subregion
+FROM book_hierarchy_rpl b
+     JOIN source_system ss
+       ON ss.source_system_id = b.source_system
+     JOIN source_system ss2
+       ON ss2.source_system_crds_name = ss.source_system_crds_name
+      AND ss2.region_id = ss.region_id
+     JOIN (SELECT y2.yeardate,
+                  MAX (b2.asofdate) AS max_asofdate
+           FROM (SELECT TRUNC (SYSDATE) + 1 - ROWNUM AS yeardate
+                 FROM DUAL
+                 CONNECT BY ROWNUM <= 365) Y2
+                JOIN (SELECT DISTINCT asofdate
+                      FROM book_hierarchy_rpl) b2
+                  ON b2.asofdate <= y2.yeardate
+           GROUP BY y2.yeardate) y
+      ON y.max_asofdate = b.asofdate
+UNION ALL
+SELECT DISTINCT a.asofdate,
+                UPPER (a.book_id) AS book_id,
+                ss2.source_system_id AS source_system,
+                NULL /* UPPER (legal_entity) */ AS legal_entity,
+                NULL /* UPPER (global_trader_book_id) */ AS global_trader_book_id,
+                NULL /* UPPER (profit_center_id) */ AS profit_center_id,
+                NULL /* UPPER (comments) */ AS comments,
+                NULL /* UPPER (data_source) */ AS data_source,
+                NULL /* UPPER (mi_location) */ AS mi_location,
+                UPPER (v.bh_volcker_trading_desk) AS trading_unit,
+                UPPER (v.bh_volcker_trading_desk_full) AS volcker_trading_desk_full,
+                UPPER (v.bh_lowest_level_rpl_code) AS lowest_level_rpl_code,
+                UPPER (v.bh_lowest_level_rpl_full_name) AS lowest_level_rpl_full_name,
+
+                UPPER (v.bh_lowest_level_rpl) AS lowest_level_rpl,
+                UPPER (v.bh_charge_report_unit_code) AS charge_reporting_unit_code,
+                UPPER (v.bh_charge_report_unit) AS charge_reporting_unit,
+                UPPER (v.bh_charge_report_parent_code) AS charge_reporting_parent_code,
+                UPPER (v.bh_charge_report_parent) AS charge_reporting_parent,
+                UPPER (v.bh_ubr_level_1_id) AS ubr_level_1_id,
+                UPPER (v.bh_ubr_level_1_name) AS ubr_level_1_name,
+                UPPER (v.bh_ubr_level_1_rpl_code) AS ubr_level_1_rpl_code,
+                UPPER (v.bh_ubr_level_2_id) AS ubr_level_2_id,
+                UPPER (v.bh_ubr_level_2_name) AS ubr_level_2_name,
+                UPPER (v.bh_ubr_level_2_rpl_code) AS ubr_level_2_rpl_code,
+                UPPER (v.bh_ubr_level_3_id) AS ubr_level_3_id,
+                UPPER (v.bh_ubr_level_3_name) AS ubr_level_3_name,
+                UPPER (v.bh_ubr_level_3_rpl_code) AS ubr_level_3_rpl_code,
+                UPPER (v.bh_ubr_level_4_id) AS ubr_level_4_id,
+                UPPER (v.bh_ubr_level_4_name) AS ubr_level_4_name,
+                UPPER (v.bh_ubr_level_4_rpl_code) AS ubr_level_4_rpl_code,
+                UPPER (v.bh_ubr_level_5_id) AS ubr_level_5_id,
+                UPPER (v.bh_ubr_level_5_name) AS ubr_level_5_name,
+                UPPER (v.bh_ubr_level_5_rpl_code) AS ubr_level_5_rpl_code,
+                UPPER (v.bh_ubr_level_6_id) AS ubr_level_6_id,
+                UPPER (v.bh_ubr_level_6_name) AS ubr_level_6_name,
+                UPPER (v.bh_ubr_level_6_rpl_code) AS ubr_level_6_rpl_code,
+                UPPER (v.bh_ubr_level_7_id) AS ubr_level_7_id,
+                UPPER (v.bh_ubr_level_7_name) AS ubr_level_7_name,
+                UPPER (v.bh_ubr_level_7_rpl_code) AS ubr_level_7_rpl_code,
+                UPPER (v.bh_ubr_level_8_id) AS ubr_level_8_id,
+                UPPER (v.bh_ubr_level_8_name) AS ubr_level_8_name,
+
+                UPPER (v.bh_ubr_level_8_rpl_code) AS ubr_level_8_rpl_code,
+                UPPER (v.bh_ubr_level_9_id) AS ubr_level_9_id,
+                UPPER (v.bh_ubr_level_9_name) AS ubr_level_9_name,
+                UPPER (v.bh_ubr_level_9_rpl_code) AS ubr_level_9_rpl_code,
+                UPPER (v.bh_ubr_level_10_id) AS ubr_level_10_id,
+                UPPER (v.bh_ubr_level_10_name) AS ubr_level_10_name,
+                UPPER (v.bh_ubr_level_10_rpl_code) AS ubr_level_10_rpl_code,
+                UPPER (v.bh_ubr_level_11_id) AS ubr_level_11_id,
+                UPPER (v.bh_ubr_level_11_name) AS ubr_level_11_name,
+                UPPER (v.bh_ubr_level_11_rpl_code) AS ubr_level_11_rpl_code,
+                UPPER (v.bh_ubr_level_12_id) AS ubr_level_12_id,
+                UPPER (v.bh_ubr_level_12_name) AS ubr_level_12_name,
+                UPPER (v.bh_ubr_level_12_rpl_code) AS ubr_level_12_rpl_code,
+                UPPER (v.bh_ubr_level_13_id) AS ubr_level_13_id,
+                UPPER (v.bh_ubr_level_13_name) AS ubr_level_13_name,
+                UPPER (v.bh_ubr_level_13_rpl_code) AS ubr_level_13_rpl_code,
+                UPPER (v.bh_ubr_level_14_id) AS ubr_level_14_id,
+                UPPER (v.bh_ubr_level_14_name) AS ubr_level_14_name,
+                UPPER (v.bh_ubr_level_14_rpl_code) AS ubr_level_14_rpl_code,
+                UPPER (v.bh_desk_level_1_id) AS desk_level_1_id,
+                UPPER (v.bh_desk_level_1_name) AS desk_level_1_name,
+                UPPER (v.bh_desk_level_1_rpl_code) AS desk_level_1_rpl_code,
+                UPPER (v.bh_desk_level_2_id) AS desk_level_2_id,
+                UPPER (v.bh_desk_level_2_name) AS desk_level_2_name,
+                UPPER (v.bh_desk_level_2_rpl_code) AS desk_level_2_rpl_code,
+                UPPER (v.bh_desk_level_3_id) AS desk_level_3_id,
+                UPPER (v.bh_desk_level_3_name) AS desk_level_3_name,
+                UPPER (v.bh_desk_level_3_rpl_code) AS desk_level_3_rpl_code,
+
+                UPPER (v.bh_desk_level_4_id) AS desk_level_4_id,
+                UPPER (v.bh_desk_level_4_name) AS desk_level_4_name,
+                UPPER (v.bh_desk_level_4_rpl_code) AS desk_level_4_rpl_code,
+                UPPER (v.bh_desk_level_5_id) AS desk_level_5_id,
+                UPPER (v.bh_desk_level_5_name) AS desk_level_5_name,
+                UPPER (v.bh_desk_level_5_rpl_code) AS desk_level_5_rpl_code,
+                UPPER (v.bh_portfolio_id) AS portfolio_id,
+                UPPER (v.bh_portfolio_name) AS portfolio_name,
+                UPPER (v.bh_portfolio_rpl_code) AS portfolio_rpl_code,
+                UPPER (v.bh_business) AS business,
+                UPPER (v.bh_sub_business) AS sub_business,
+                '' AS REGION,
+
+                '' AS SUB_REGION
+FROM vw_source_system v
+     JOIN age a
+       ON a.source_system_id = v.source_system_id
+     JOIN source_system ss
+       ON ss.source_system_id = a.source_system_id
+     JOIN SOURCE_SYSTEM ss2
+       ON ss2.source_system_crds_name = ss.source_system_crds_name
+      AND ss2.region_id = ss.region_id
+WHERE v.bh_ubr_level_1_id is not null;

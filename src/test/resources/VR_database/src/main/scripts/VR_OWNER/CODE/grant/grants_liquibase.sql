@@ -1,0 +1,6 @@
+--liquibase formatted sql
+--changeset ${vr_owner_user}_CODE:GRANTS_LIQUIBASE   failOnError:TRUE splitStatements:TRUE
+GRANT SELECT ON DATABASECHANGELOG TO ${vr_read_role};
+GRANT SELECT ON DATABASECHANGELOGLOCK TO ${vr_read_role};
+GRANT INSERT,DELETE,UPDATE ON DATABASECHANGELOG TO ${vr_update_role};
+GRANT INSERT,DELETE,UPDATE ON DATABASECHANGELOGLOCK TO ${vr_update_role};

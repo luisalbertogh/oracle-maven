@@ -1,0 +1,8 @@
+--liquibase formatted sql
+--changeset ${vr_owner_user}_CODE:PACKAGE_PKG_SDATA_PROCESS_DESK runOnChange:TRUE  failOnError:TRUE splitStatements:FALSE
+
+
+CREATE OR REPLACE PACKAGE PKG_SDATA_PROCESS_DESK
+AS
+    PROCEDURE P_PROCESS_DESKATTR;
+END PKG_SDATA_PROCESS_DESK;

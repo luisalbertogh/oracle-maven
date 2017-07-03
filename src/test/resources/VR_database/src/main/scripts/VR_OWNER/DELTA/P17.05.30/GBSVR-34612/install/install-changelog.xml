@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+ 
+        <include file="DELTA/P17.05.31/GBSVR-34612/install/DUMMY_TABLE_DDL.sql"/>
+	    <!-- dummy code change-->
+		<!-- we increase id as has to be unique -->
+		<changeSet id="GBSVR-34612-2" author="P17.05.30" runOnChange="true" failOnError="false">
+				<!-- Do not validate -->
+				<sqlFile endDelimiter="\n/\s*\n|\n/\s*$" path="CODE/procedure/VOLKER_RUN_DECISION_MATRIX.sql" />
+                <rollback>
+				<!-- here we stablish the rollback location-->
+				<!-- old version of this procedure was copied from 12313 svn revision -->
+                <sqlFile endDelimiter="\n/\s*\n|\n/\s*$" path="DELTA/P17.05.30/GBSVR-34622/rollback/VOLKER_RUN_DECISION_MATRIX.rev12313.sql" />
+                </rollback>
+		</changeSet>
+		
+		<!-- we increase id as has to be unique -->
+		<changeSet id="GBSVR-34612-2" author="P17.05.30" runOnChange="true">
+				<sqlFile endDelimiter="\n/\s*\n|\n/\s*$" path="CODE/procedure/VOLKER_RUN_DECISION_MATRIX.sql" />
+                <rollback>
+				<!-- here we stablish the rollback location-->
+				<!-- old version of this procedure was copied from 12313 svn revision -->
+                <sqlFile endDelimiter="\n/\s*\n|\n/\s*$" path="DELTA/P17.05.30/GBSVR-34612/rollback/VOLKER_RUN_DECISION_MATRIX.rev12313.sql" />
+                </rollback>
+		</changeSet>
+
+      
+</databaseChangeLog>
