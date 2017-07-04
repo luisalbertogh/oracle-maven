@@ -2,14 +2,15 @@ node {
     stage 'Checkout'
     git changelog: false, credentialsId: 'b62020a2-bb9d-4303-897b-7ce7730d7cef', poll: false, url: 'https://github.com/luisalbertogh/oracle-maven.git'
     
+    stage 'Read properties'
+    def props = readProperties file:'JenkinsFile.properties'
+    echo "Hola ${prop01}"
+
+    /*
     stage 'Build'
     def mvnHome = tool 'Maven 3.2'
     bat "${mvnHome}/bin/mvn clean install"
     
     stage 'Archive'
-    archiveArtifacts artifacts: 'target/*.jar', onlyIfSuccessful: true
-
-    stage 'Read properties'
-    def props = readProperties file:'JenkinsFile.properties'
-    echo "Hola ${prop01}"
+    archiveArtifacts artifacts: 'target/*.jar', onlyIfSuccessful: true */
 }
