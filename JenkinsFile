@@ -4,7 +4,7 @@ node {
     
     stage 'Read properties'
     def props = readProperties file:'JenkinsFile.properties'
-    echo "Hola "+props[prop01]
+    echo "Hola "+props['prop01']
 
     /*
     stage 'Build'
