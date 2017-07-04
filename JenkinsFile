@@ -10,5 +10,6 @@ node {
     archiveArtifacts artifacts: 'target/*.jar', onlyIfSuccessful: true
 
     stage 'Read properties'
+    def props = readProperties file:'JenkinsFile.properties'
     echo "Hola ${prop01}"
 }
