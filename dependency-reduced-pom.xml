@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.db.volcker.sdlc</groupId>
+  <artifactId>quality-gate-maven-plugin</artifactId>
+  <packaging>maven-plugin</packaging>
+  <name>Volcker Oracle validation maven plugin</name>
+  <version>0.0.1-SNAPSHOT</version>
+  <description>Validate Volcker Oracle artifact content.</description>
+  <scm>
+    <connection>scm:git:${scm-url}</connection>
+    <developerConnection>scm:git:${scm-url}</developerConnection>
+    <url>${scm-url}</url>
+  </scm>
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.0.0</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <transformers>
+                <transformer>
+                  <mainClass>com.db.volcker.sdlc.OracleValidator</mainClass>
+                </transformer>
+              </transformers>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+  <distributionManagement>
+    <repository>
+      <id>artifactory</id>
+      <name>PCMAD231-releases</name>
+      <url>http://localhost:8082/artifactory/my-releases</url>
+    </repository>
+    <snapshotRepository>
+      <id>snapshots</id>
+      <name>PCMAD231-snapshots</name>
+      <url>http://localhost:8082/artifactory/my-snapshots</url>
+    </snapshotRepository>
+  </distributionManagement>
+  <properties>
+    <scm-url>git@github.com:luisalbertogh/oracle-maven.git</scm-url>
+    <java.version>1.8</java.version>
+    <maven.compiler.source>1.7</maven.compiler.source>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.target>1.7</maven.compiler.target>
+  </properties>
+</project>
+

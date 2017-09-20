@@ -102,7 +102,7 @@
     <!-- Distribution management -->
     <distributionManagement>
       <repository>
-        <id>central</id>
+        <id>artifactory</id>
         <name>PCMAD231-releases</name>
         <url>http://localhost:8082/artifactory/my-releases</url>
       </repository>
