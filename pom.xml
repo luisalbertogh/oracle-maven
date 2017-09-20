@@ -98,5 +98,19 @@
         </plugin>
       </plugins>
     </build>
+
+    <!-- Distribution management -->
+    <distributionManagement>
+      <repository>
+        <id>central</id>
+        <name>PCMAD231-releases</name>
+        <url>http://localhost:8082/artifactory/my-releases</url>
+      </repository>
+      <snapshotRepository>
+        <id>snapshots</id>
+        <name>PCMAD231-snapshots</name>
+        <url>http://localhost:8082/artifactory/my-snapshots</url>
+      </snapshotRepository>
+    </distributionManagement>
         
 </project>
